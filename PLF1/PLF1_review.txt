@@ -1,0 +1,5 @@
+in randomness test, has result 29793722/118711 = 250.9 ~ 256 差強人意，勉強可以。
+the greatest problem is still pseudo random without specific meaningness pull back the efficiency, and the lack of security in test of dekey(addkey to all zero).
+
+solve dekey by twisting original string and poisition-based adding key.
+
