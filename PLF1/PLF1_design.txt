@@ -1,27 +1,26 @@
 it's a simple hash function design.
 
 setting
-	L = 168
-	K = 800
-input
+	L = 500
+	K = 23
 	rootkey(256 int)
-	string(length under 131072 (if above, double hash))
-	transmatrix(4x4, allpositive)
+	a matrix(4x4)
+input
+	
+	string(with memory limit, up to 131073 byte)
 
 output
 	hashstring(K byte)
 
 idea:
-	add root key into original string every 256 characters -> stringA
-	running through the whole stringA to decide rollingbasic R. (0 <= R <= 100007)
-	
-	get length L of effective strings from stringA by running rolling function using R, get K this kind of stringB_0~K-1, and last running rolling function to get a number S. S < K
-
+	add root key into original string every 256 characters -> stringA, like salting
+	running through the whole stringA to decide a number R. (0 <= R <= 100007)
+	get K effective strings with length L from stringA by running rolling function that gives pseudo-random number depending on R, K, marked as stringB_0~K-1.
+	get S by rolling function.
 	repeat K times:
 		the i times:
 		choose stringB_S multiple with transmatrix 4X4 X L/4 times
 		add this stringB_S into the i place in output
-
 
 overall time efficiency:
 	add key --> n
