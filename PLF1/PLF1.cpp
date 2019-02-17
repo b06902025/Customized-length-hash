@@ -2,9 +2,9 @@
 #include <cstring>
 using namespace std;
 
-const unsigned int L = 500;
-const unsigned int K = 23;
-const unsigned int RMAX = 100007;
+const unsigned int L = 100; // flexible
+const unsigned int K = 256; // flexible
+const unsigned int RMAX = 1000007; // flexible (responsible for collision)
 unsigned int R;
 unsigned int S;
 
@@ -52,11 +52,12 @@ void addROOTKEY(unsigned char* stringA, long long len){
 void getR(unsigned char* stringA, long long len){
 	R = 0;
 	for(int i=0;i<len;i++){
-		R += ROOTKEY[(stringA[i]+i)%256] * stringA[i] + i % K*L;
+		R += ROOTKEY[(stringA[i]+i)%256] * (stringA[i]+1) + i % K*L;
 		R %= RMAX;
 	}
 }
 
+// primative way to do matrix multiple
 void multipleByMatrix(unsigned char* str, long long len){
 	unsigned char tmp[4][4];
 	unsigned char newtmp[4][4];
@@ -84,14 +85,15 @@ void multipleByMatrix(unsigned char* str, long long len){
 	}
 }
 
+// to make sure value is random enough.
 unsigned int rolling(unsigned int nx, unsigned int seed, unsigned long long maxvalue, int step){
 	nx += 1e6+1e4+31771;
-	step += 131; step *= 17; step %= 131; step += 1;
+	step *= 17; step %= 131; step += 1;
 	nx *= nx+step; nx += seed*1023/97;
 	nx /= 97; 
 	nx *= seed+step; nx += 19; nx *= 3+step;
-	nx += seed/7/13/step; nx += nx/7/step/13;
-	nx += seed/step; nx += step;
+	nx += seed/7/13/step;
+	nx += seed/step + step;
 	nx %= maxvalue;
 }
 

@@ -1,8 +1,8 @@
 it's a simple hash function design.
 
 setting
-	L = 500
-	K = 23
+	L = flexible
+	K = flexible
 	rootkey(256 int)
 	a matrix(4x4)
 input
@@ -13,24 +13,19 @@ output
 	hashstring(K byte)
 
 idea:
-	add root key into original string every 256 characters -> stringA, like salting
-	running through the whole stringA to decide a number R. (0 <= R <= 100007)
-	get K effective strings with length L from stringA by running rolling function that gives pseudo-random number depending on R, K, marked as stringB_0~K-1.
+1.	add root key into original string every 256 characters -> stringA ( like salting )
+2.	running through the whole stringA to decide a number R. (0 <= R <= 1000007)
+3.	get K effective strings with length L from stringA by running rolling function that gives pseudo-random number depending on R, K, marked as stringB_0~K-1.
 	get S by rolling function.
-	repeat K times:
+4.	repeat K times:
 		the i times:
 		choose stringB_S multiple with transmatrix 4X4 X L/4 times
 		add this stringB_S into the i place in output
 
 overall time efficiency:
-	add key --> n
-	get R --> n
-	get stringB --> KL
-	get outputstring --> KL
+1.	add key = O(n)
+2.	get R = O(n)
+3.	get stringB = O(KL)
+4.	get outputstring = O(KL)
 
 O(n+KL)
-
-
-
-problem report:
-	rolling function has high possibility of repeat when K, L is small

@@ -29,20 +29,30 @@ int main(){
 	int cnt = 0, snt = 0;
 	while(1){
 		genRandomContent();
-		unsigned char result[256];
+		unsigned char result[510];
 		PLF1(source, result, randomlength);
 		
 		if(checkResult(result)){
-			printInHex(source, randomlength); cout << " = ";
-			printInHex(result, 23);
-			cout << " success!\n";
+			printInHex(result, 60);
+			cout << "... success!\n";
 			cnt++;
 			cout << "success ratio:" << cnt << "/" << snt << "\n";
 		}
 		else{
-			printInHex(result, 23); cout << " " << cnt << "/" << snt << "\r";
+			cout << "\r";
+			printInHex(result, 60); cout << "... " << cnt << "/" << snt << "\r";
 		}
 		snt++;
 	}
 
 }
+
+/*
+compile with:
+	g++ PLF1_randomtest.cpp PLF1.cpp -o randomtest
+execute with:
+	randomtest
+	./randomtest
+*/
+
+/* ratio represents the possibility that 0 is happened at the first byte of hash value. */

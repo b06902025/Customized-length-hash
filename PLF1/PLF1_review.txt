@@ -1,4 +1,0 @@
-in randomness test, has result 29793722/118711 = 250.9 ~ 256 
-the greatest problem is pseudo random without specific meaningness pull back the efficiency.
-and if root-key is known, it is possible to generate several data that will collide in hash value is absolute zero. <-- can be solve by addkey in some way.
-
